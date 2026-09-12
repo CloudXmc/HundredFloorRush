@@ -1,0 +1,80 @@
+# 比赛总配置。所有数值修改后执行 /hfr reload 生效；不会覆盖现有竞技场数据。
+
+# 默认比赛倒计时秒数。取值范围：1-30；默认：5。
+countdown-seconds: 5
+
+# 默认比赛时限秒数。取值范围：30-3600；默认：300。
+time-limit-seconds: 300
+
+# 默认最少玩家数。取值范围：1-100；默认：1。
+minimum-players: 1
+
+# 默认最大玩家数。取值范围：1-100；默认：16。
+maximum-players: 16
+
+# 赛道要求标定的楼层入口数量。取值范围：1-100；默认：100。
+# 修改后 reload 生效；作为手工地图保存时的默认校验数量。自动生成命令可显式指定楼层数，
+# 已保存的自动地图按自身楼层数量校验，不会修改或迁移已有竞技场。
+floor-count: 100
+
+# 玩家穿过下落入口时允许偏离入口中心的水平半径。取值范围：0.5-8.0；默认：1.6。
+# 修改后 reload 生效，仅影响之后新建的比赛。
+gate-radius: 1.6
+
+# 玩家到达终点时允许偏离终点坐标的空间半径。取值范围：0.5-16.0；默认：3.0。
+# 修改后 reload 生效，仅影响之后新建的比赛。
+finish-radius: 3.0
+
+# 到达终点时是否播放庆祝烟花效果。可选：true/false；默认：true。
+# 修改后 reload 生效，仅影响之后新建的比赛，不修改任何已有数据。
+finish-firework: true
+
+# 记分板刷新周期 tick。取值范围：1-20；默认：5。
+# 修改后 reload 生效，新加入玩家使用新值。
+scoreboard-period-ticks: 5
+
+# 全员完成或超时后的结果展示秒数；展示结束后切换到 proxy.lobby-server。
+# 取值范围：1-30；默认：5。
+# 修改后 reload 生效，仅影响之后新建的比赛。
+result-display-seconds: 5
+
+# 玩家越界或受到致命伤害后的恢复冷却秒数。取值范围：0-30；默认：2。
+# 修改后 reload 生效，仅影响之后新建的比赛；不会修改玩家记录。
+recovery-cooldown-seconds: 2
+
+# 点击入场 NPC 自动加入竞技场等待区。修改后执行 /hfr reload 生效。
+join-npc:
+  # 是否启用点击 NPC 入场。可选：true/false；默认：true。
+  enabled: true
+
+  # NPC 实体类型。必须是可存活实体，例如 VILLAGER、WANDERING_TRADER；默认：VILLAGER。
+  entity-type: VILLAGER
+
+  # NPC 的显示名称。支持颜色后的纯文本匹配；默认：速下百层。
+  name: 速下百层
+
+  # 点击 NPC 后进入的竞技场名称。留空时仅有一个竞技场则自动选择；多个竞技场时提示管理员配置。
+  arena: ""
+
+# 独立网络子服返回大厅配置。需要 Velocity 开启 BungeeCord 兼容插件消息通道，或使用 BungeeCord 代理。
+proxy:
+  # 是否启用代理切服。可选：true/false；默认：true。
+  # 修改后执行 /hfr reload 生效；关闭后返回大厅道具改为执行同服原位置恢复。
+  enabled: true
+
+  # 代理配置中的大厅子服名称。可使用字母、数字、下划线和短横线，长度 1-64；默认：server。
+  # 修改后执行 /hfr reload 生效；不会影响竞技场数据和玩家成绩。
+  lobby-server: server
+
+identity:
+  # 玩家持久身份模式。OFFLINE_NAME：按名称；ONLINE_UUID：按服务器提供的真实 UUID。
+  # 默认：OFFLINE_NAME。修改后 reload 生效，旧最佳记录不会自动迁移。
+  mode: OFFLINE_NAME
+
+  # 离线服名称是否忽略大小写。可选：true/false；默认：true。
+  # 修改后 reload 生效，旧最佳记录不会自动合并或迁移。
+  offline-name-ignore-case: true
+
+  # 是否在最佳记录中保存玩家最后一次使用的名称。可选：true/false；默认：true。
+  # 修改后 reload 生效，不影响既有成绩数值。
+  save-last-known-name: true

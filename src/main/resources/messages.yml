@@ -1,0 +1,105 @@
+# 统一前缀。支持 MiniMessage、& 传统颜色和 § 颜色；修改后 /hfr reload 生效。
+prefix: "<dark_gray>[<gradient:#55FFAA:#55AAFF>速下百层</gradient>]</dark_gray> "
+# 返回大厅道具显示名称。该文本不会附加聊天前缀；修改后 /hfr reload 生效。
+lobby-item-name: "<green>返回大厅</green>"
+# 返回大厅道具说明。每行一条 Lore；修改后 /hfr reload 只影响之后发放的道具。
+lobby-item-lore:
+  - "<gray>左键或右键点击，返回大厅。</gray>"
+  - "<yellow>该物品无法丢弃或移动。</yellow>"
+# 返回大厅道具无法放入背包时的提示。修改后 /hfr reload 生效。
+lobby-item-inventory-full: "<yellow>快捷栏第 9 格必须为空才能固定放置返回大厅道具；请先清理该槽位后重试。</yellow>"
+# 代理切服请求已提交时的提示。修改后 /hfr reload 生效。
+lobby-switching: "<green>正在返回大厅……</green>"
+# 代理未接收切服请求时的提示。修改后 /hfr reload 生效。
+proxy-switch-failed: "<red>返回大厅失败，请确认代理已开启 BungeeCord 兼容插件消息通道。</red>"
+# 指令消息。修改后 /hfr reload 生效。
+no-permission: "<red>你没有权限执行此指令。</red>"
+unknown-command: "<yellow>未知子指令，请输入 <white>/hfr help</white>。</yellow>"
+player-only: "<red>该操作只能由玩家执行。</red>"
+operation-failed: "<red>操作失败：{reason}</red>"
+# 发生未预期的指令异常时显示的安全提示；详细异常只记录到控制台；修改后 /hfr reload 生效。
+operation-failed-generic: "<red>操作失败，请查看服务器控制台日志。</red>"
+usage-join: "<yellow>用法：<white>/hfr join [名称]</white></yellow>"
+# 指令缺少参数时的提示；修改后 /hfr reload 生效。
+arguments-missing: "<yellow>参数不足，请输入 <white>/hfr help</white> 查看正确用法。</yellow>"
+# 竞技场名称为空时的提示；修改后 /hfr reload 生效。
+arena-name-required: "<yellow>竞技场名称不能为空，请输入 <white>/hfr help</white> 查看用法。</yellow>"
+# 竞技场名称包含 YAML 路径分隔符或超出长度限制时的提示；修改后 /hfr reload 生效。
+arena-name-invalid: "<red>竞技场名称最长 64 个字符，且不能包含点号或换行。</red>"
+# 控制台未提供竞技场名称时的提示；修改后 /hfr reload 生效。
+arena-required: "<yellow>控制台执行此操作时必须指定竞技场名称。</yellow>"
+# 玩家尚未选择手工草稿时的提示；修改后 /hfr reload 生效。
+draft-required: "<yellow>请先执行 <white>/hfr edit [名称]</white> 创建或选择一个竞技场草稿。</yellow>"
+# 指定草稿不存在时的提示；修改后 /hfr reload 生效。
+draft-not-found: "<red>没有找到正在编辑的竞技场草稿：<white>{arena}</white>。请先执行 <white>/hfr edit {arena}</white>。</red>"
+# 草稿缺少必要坐标时的提示；修改后 /hfr reload 生效。
+draft-incomplete: "<yellow>草稿尚未完整设置，请先设置等待点、起点、终点和边界。</yellow>"
+# 设置边界前尚未记录选点时的提示；修改后 /hfr reload 生效。
+selection-required: "<yellow>请先执行 <white>/hfr {position}</white> 设置边界点。</yellow>"
+# 种子不是整数时的提示；修改后 /hfr reload 生效。
+invalid-seed: "<red>种子必须是整数。</red>"
+# 楼层参数不是整数时的提示；修改后 /hfr reload 生效。
+invalid-floor-count: "<red>楼层数量必须是整数。</red>"
+# 楼层参数超出允许范围时的提示；修改后 /hfr reload 生效。
+floor-count-range: "<red>楼层数量必须在 1-100 之间。</red>"
+# 两个边界选点不在同一世界时的提示；修改后 /hfr reload 生效。
+bounds-different-world: "<red>边界两点必须位于同一世界。</red>"
+# set 的位置类型无效时的提示；修改后 /hfr reload 生效。
+invalid-position-type: "<yellow>位置类型只能是 waiting、start、finish 或 bounds。</yellow>"
+# 手工楼层数量达到上限时的提示；修改后 /hfr reload 生效。
+floor-limit: "<red>楼层数量不能超过 100。</red>"
+join-npc-no-arena: "<red>暂时没有可加入的竞技场，请联系管理员。</red>"
+join-npc-multiple-arenas: "<yellow>当前有多个竞技场，请联系管理员配置 join-npc.arena。</yellow>"
+reload-success: "<green>配置已重载；现有比赛继续使用原比赛参数。</green>"
+reload-failed: "<red>重载失败，已继续使用旧配置：{reason}</red>"
+identity-changed: "<yellow>玩家身份模式已修改，旧玩家数据不会自动迁移。</yellow>"
+arena-created: "<green>已创建竞技场：<white>{arena}</white>。</green>"
+arena-generation-started: "<yellow>正在生成 <white>{arena}</white> 的 {floors} 层自动地图，种子：<white>{seed}</white>。</yellow>"
+arena-generated: "<green>自动地图生成完成：<white>{arena}</white>，世界：<white>{world}</white>，种子：<white>{seed}</white>。现在可以加入。</green>"
+arena-generation-failed: "<red>自动地图生成失败：{reason}</red>"
+arena-saved: "<green>已保存竞技场：<white>{arena}</white>。</green>"
+arena-deleted: "<green>已删除竞技场配置：<white>{arena}</white>。为防误删，原世界目录仍保留。</green>"
+arena-delete-conflict: "<yellow>竞技场 <white>{arena}</white> 在删除前已被其他操作修改，未执行删除。</yellow>"
+arena-missing: "<red>竞技场不存在：{arena}。</red>"
+arena-invalid: "<red>竞技场配置不完整：{reason}</red>"
+arena-reloading: "<yellow>竞技场 <white>{arena}</white> 正在切换配置，请等待当前比赛结束后再加入。</yellow>"
+position-set: "<green>已设置 {type} 坐标。</green>"
+floor-added: "<green>已添加第 {floor} 层下落入口。</green>"
+joined: "<green>你已加入 <white>{arena}</white>，等待开局。</green>"
+countdown-started: "<yellow>人数已满足，{seconds} 秒后开始。</yellow>"
+already-playing: "<yellow>你已经在比赛中。</yellow>"
+not-playing: "<yellow>你当前不在比赛中。</yellow>"
+left: "<green>你已离开比赛。</green>"
+arena-full: "<red>竞技场已满。</red>"
+game-running: "<red>比赛已经开始，暂时不能加入。</red>"
+game-not-running: "<yellow>当前没有正在进行的比赛。</yellow>"
+game-started: "<green>比赛开始！快速向下冲刺！</green>"
+game-title: "<gradient:#55FFAA:#55AAFF><bold>速下百层</bold></gradient>"
+game-subtitle: "<yellow>沿金色入口向下冲刺！</yellow>"
+game-start-requested: "<yellow>已请求启动竞技场：<white>{arena}</white>。</yellow>"
+game-cancelled: "<yellow>比赛已取消。</yellow>"
+game-over: "<gold>本局所有选手已完成，比赛结束。</gold>"
+game-finished: "<gold>恭喜你到达终点！你排名第 <yellow>{rank}</yellow>。</gold>"
+floor-passed: "<aqua>通过第 <white>{floor}</white>/<white>{total}</white> 层</aqua>"
+new-best: "<gold>你刷新了该赛道的个人最佳记录！</gold>"
+player-recovered: "<yellow>已将你送回第 {floor} 层的安全位置。</yellow>"
+login-recovered: "<green>已将你送回进入速下百层前的位置。</green>"
+game-timeout: "<red>时间到，比赛结束。</red>"
+teleport-failed: "<red>传送失败，请联系管理员。</red>"
+player-eliminated: "<red>你已离开赛道，返回等待区。</red>"
+help:
+  header: "<aqua><bold>速下百层帮助</bold></aqua>"
+  help: "<yellow>/hfr help</yellow> <gray>- 查看帮助。</gray>"
+  join: "<yellow>/hfr join [名称]</yellow> <gray>- 加入竞技场。</gray>"
+  leave: "<yellow>/hfr leave</yellow> <gray>- 离开当前比赛并返回大厅。</gray>"
+  reload: "<yellow>/hfr reload</yellow> <gray>- 重载配置。</gray>"
+  create: "<yellow>/hfr create [名称] [种子] [楼层]</yellow> <gray>- 自动创建独立虚空赛道。</gray>"
+  generate: "<yellow>/hfr generate [名称] [种子] [楼层]</yellow> <gray>- create 的完整别名。</gray>"
+  edit: "<yellow>/hfr edit [名称]</yellow> <gray>- 创建并选择手工地图草稿。</gray>"
+  set: "<yellow>/hfr set [waiting|start|finish|bounds] [名称]</yellow> <gray>- 设置坐标；名称可省略并使用最近选择的草稿。</gray>"
+  pos1: "<yellow>/hfr pos1</yellow> <gray>- 记录边界第一点。</gray>"
+  pos2: "<yellow>/hfr pos2</yellow> <gray>- 记录边界第二点。</gray>"
+  add-floor: "<yellow>/hfr add-floor [名称]</yellow> <gray>- 添加当前层下落入口，名称可省略，最多 100 层。</gray>"
+  save: "<yellow>/hfr save [名称]</yellow> <gray>- 保存竞技场；名称可省略并使用最近选择的草稿。</gray>"
+  delete: "<yellow>/hfr delete [名称]</yellow> <red>- 删除竞技场配置，世界目录会保留。</red>"
+  start: "<yellow>/hfr start [名称]</yellow> <gray>- 强制开始比赛。</gray>"
