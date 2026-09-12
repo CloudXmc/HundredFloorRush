@@ -1,0 +1,26 @@
+name: HundredFloorRush
+version: '1.2.2'
+main: cn.mcxyd.hundredfloor.HundredFloorRushPlugin
+description: 视频风格的速下百层垂直竞速小游戏。
+author: xiaota
+# Bukkit plugin.yml 使用主次版本声明；实际编译/运行目标仍为 Paper/Folia 1.21.11。
+api-version: '1.21'
+folia-supported: true
+commands:
+  hfr:
+    description: 速下百层小游戏主指令。
+    usage: /hfr help
+    aliases: [hundredfloor, 速下百层]
+permissions:
+  hundredfloorrush.command.help:
+    description: 查看速下百层帮助。
+    default: true
+  hundredfloorrush.command.join:
+    description: 加入速下百层竞技场。
+    default: true
+  hundredfloorrush.command.leave:
+    description: 离开当前速下百层比赛。
+    default: true
+  hundredfloorrush.command.admin:
+    description: 管理速下百层竞技场。
+    default: op
