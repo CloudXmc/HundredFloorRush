@@ -1,0 +1,21 @@
+# Maven build output
+target/
+
+# Local server/runtime data
+run/
+logs/
+worlds/
+plugins/
+
+# IDE metadata
+.idea/
+*.iml
+.vscode/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Local secrets and generated configuration
+*.local.yml
+*.secret.yml
