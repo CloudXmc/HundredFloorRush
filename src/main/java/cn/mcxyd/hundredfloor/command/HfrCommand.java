@@ -9,6 +9,8 @@ import cn.mcxyd.hundredfloor.game.model.ArenaDefinition;
 import cn.mcxyd.hundredfloor.game.model.ArenaPoint;
 import cn.mcxyd.hundredfloor.service.ArenaRepository;
 import cn.mcxyd.hundredfloor.service.ArenaGenerationService;
+import cn.mcxyd.hundredfloor.service.AdminGuiService;
+import cn.mcxyd.hundredfloor.service.LuckPermsIntegration;
 import cn.mcxyd.hundredfloor.service.GameService;
 import cn.mcxyd.hundredfloor.service.MessageService;
 import cn.mcxyd.hundredfloor.scheduler.TaskScheduler;
@@ -42,16 +44,32 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
     private final MessageService messages;
     private final ArenaGenerationService generation;
     private final TaskScheduler scheduler;
+    private final AdminGuiService adminGui;
+    private final LuckPermsIntegration luckPerms;
     private final ArenaValidator validator = new ArenaValidator();
 
     public HfrCommand(ConfigurationManager configuration, ArenaRepository arenas, GameService game,
                       MessageService messages, ArenaGenerationService generation, TaskScheduler scheduler) {
+        this(configuration, arenas, game, messages, generation, scheduler, null);
+    }
+
+    public HfrCommand(ConfigurationManager configuration, ArenaRepository arenas, GameService game,
+                      MessageService messages, ArenaGenerationService generation, TaskScheduler scheduler,
+                      AdminGuiService adminGui) {
+        this(configuration, arenas, game, messages, generation, scheduler, adminGui, null);
+    }
+
+    public HfrCommand(ConfigurationManager configuration, ArenaRepository arenas, GameService game,
+                      MessageService messages, ArenaGenerationService generation, TaskScheduler scheduler,
+                      AdminGuiService adminGui, LuckPermsIntegration luckPerms) {
         this.configuration = configuration;
         this.arenas = arenas;
         this.game = game;
         this.messages = messages;
         this.generation = generation;
         this.scheduler = scheduler;
+        this.adminGui = adminGui;
+        this.luckPerms = luckPerms;
     }
 
     @Override
@@ -70,6 +88,7 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
             case "save" -> admin(sender, args, this::save);
             case "delete" -> admin(sender, args, this::delete);
             case "start" -> admin(sender, args, this::start);
+            case "gui", "admin" -> openGui(sender, args);
             default -> {
                 messages.send(sender, "unknown-command", Map.of());
                 yield true;
@@ -91,7 +110,7 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
             messages.send(sender, "help.leave", Map.of());
         }
         if (sender.hasPermission(ADMIN)) {
-            for (String key : List.of("reload", "create", "generate", "edit", "set", "pos1", "pos2", "add-floor", "save", "delete", "start")) {
+            for (String key : List.of("reload", "create", "generate", "edit", "set", "pos1", "pos2", "add-floor", "save", "delete", "start", "gui")) {
                 messages.send(sender, "help." + key, Map.of());
             }
         }
@@ -132,6 +151,24 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean openGui(CommandSender sender, String[] args) {
+        if (!sender.hasPermission(AdminGuiService.PERMISSION) || !sender.hasPermission(ADMIN)) {
+            messages.send(sender, "no-permission", Map.of());
+            return true;
+        }
+        if (!(sender instanceof Player player)) {
+            messages.send(sender, "player-only", Map.of());
+            return true;
+        }
+        if (adminGui == null) {
+            messages.send(sender, "gui-unavailable", Map.of());
+            return true;
+        }
+        String arena = args.length >= 2 ? args[1].trim() : "";
+        adminGui.open(player, arena);
+        return true;
+    }
+
     private boolean reload(CommandSender sender) {
         if (!sender.hasPermission(ADMIN)) {
             messages.send(sender, "no-permission", Map.of());
@@ -142,6 +179,12 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
             ReloadResult result = configuration.reload();
             if (result.success()) {
                 game.reloadMessages();
+                if (adminGui != null) {
+                    adminGui.reload();
+                }
+                if (luckPerms != null) {
+                    scheduler.runGlobal(() -> luckPerms.reload(configuration.luckPerms()));
+                }
                 scheduler.runGlobal(game::refreshProxyRegistration);
             }
             if (playerId == null) {
@@ -549,6 +592,9 @@ public final class HfrCommand implements CommandExecutor, TabCompleter {
             }
             if (sender.hasPermission(ADMIN)) {
                 values.addAll(List.of("reload", "create", "generate", "edit", "set", "pos1", "pos2", "add-floor", "save", "delete", "start"));
+                if (sender.hasPermission(AdminGuiService.PERMISSION)) {
+                    values.add("gui");
+                }
             }
             return partial(values, args[0]);
         }

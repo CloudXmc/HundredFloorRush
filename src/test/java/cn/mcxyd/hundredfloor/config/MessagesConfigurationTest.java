@@ -25,7 +25,9 @@ class MessagesConfigurationTest {
                 "operation-failed-generic", "arguments-missing", "arena-name-required", "arena-required", "draft-required",
                 "draft-not-found", "draft-incomplete", "selection-required", "invalid-seed", "invalid-floor-count",
                 "floor-count-range", "bounds-different-world", "invalid-position-type", "floor-limit",
-                "help.pos1", "help.pos2");
+                "gui-unavailable", "gui-input-name", "gui-input-seed", "gui-input-floors",
+                "gui-input-cancelled", "gui-reload-failed", "gui-status-generated", "gui-status-manual",
+                "gui-status-running", "arena-delete-running", "help.pos1", "help.pos2", "help.gui");
         for (String key : required) {
             assertTrue(messages.isString(key), "missing message key: " + key);
         }

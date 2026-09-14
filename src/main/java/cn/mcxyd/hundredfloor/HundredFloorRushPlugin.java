@@ -3,14 +3,17 @@ package cn.mcxyd.hundredfloor;
 import cn.mcxyd.hundredfloor.command.HfrCommand;
 import cn.mcxyd.hundredfloor.config.ConfigurationManager;
 import cn.mcxyd.hundredfloor.listener.GameListener;
+import cn.mcxyd.hundredfloor.listener.AdminGuiListener;
 import cn.mcxyd.hundredfloor.scheduler.PaperFoliaTaskScheduler;
 import cn.mcxyd.hundredfloor.scheduler.ServerPlatform;
 import cn.mcxyd.hundredfloor.scheduler.TaskHandle;
 import cn.mcxyd.hundredfloor.scheduler.TaskScheduler;
 import cn.mcxyd.hundredfloor.service.ArenaRepository;
 import cn.mcxyd.hundredfloor.service.ArenaGenerationService;
+import cn.mcxyd.hundredfloor.service.AdminGuiService;
 import cn.mcxyd.hundredfloor.service.GameService;
 import cn.mcxyd.hundredfloor.service.LobbyItemService;
+import cn.mcxyd.hundredfloor.service.LuckPermsIntegration;
 import cn.mcxyd.hundredfloor.service.MessageService;
 import cn.mcxyd.hundredfloor.service.ProxyService;
 import cn.mcxyd.hundredfloor.service.RecoveryRepository;
@@ -32,6 +35,8 @@ public final class HundredFloorRushPlugin extends JavaPlugin {
     private HfrCommand command;
     private ArenaRepository arenas;
     private ArenaGenerationService generation;
+    private AdminGuiService adminGui;
+    private LuckPermsIntegration luckPerms;
     private TaskHandle gameTick;
 
     @Override
@@ -67,12 +72,21 @@ public final class HundredFloorRushPlugin extends JavaPlugin {
         proxy.register();
         LobbyItemService lobbyItems = new LobbyItemService(this, messages);
         game = new GameService(configuration, arenas, records, recoveries, messages, scheduler, proxy, lobbyItems);
-
-        command = new HfrCommand(configuration, arenas, game, messages, generation, scheduler);
+        luckPerms = new LuckPermsIntegration(this);
+        luckPerms.initialize(configuration.luckPerms());
+        try {
+            adminGui = new AdminGuiService(this, configuration, arenas, generation, game, messages, scheduler, luckPerms);
+        } catch (RuntimeException exception) {
+            getLogger().severe("管理员 GUI 配置加载失败，插件将安全关闭：" + exception.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        command = new HfrCommand(configuration, arenas, game, messages, generation, scheduler, adminGui, luckPerms);
         PluginCommand pluginCommand = Objects.requireNonNull(getCommand("hfr"), "plugin.yml 缺少 hfr 指令");
         pluginCommand.setExecutor(command);
         pluginCommand.setTabCompleter(command);
         getServer().getPluginManager().registerEvents(new GameListener(game, lobbyItems, scheduler, command), this);
+        getServer().getPluginManager().registerEvents(new AdminGuiListener(adminGui), this);
 
         // /reload 不会重新触发 PlayerJoinEvent；主动把当前在线玩家身上的旧
         // 返回大厅道具安排到各自实体上下文清理，避免旧 PDC 物品失去保护。
@@ -113,6 +127,14 @@ public final class HundredFloorRushPlugin extends JavaPlugin {
         ArenaGenerationService generationRef = generation;
         generation = null;
         closeStep("地图生成任务", generationRef == null ? null : generationRef::close);
+
+        AdminGuiService guiRef = adminGui;
+        adminGui = null;
+        closeStep("管理员 GUI 会话", guiRef == null ? null : guiRef::clearAll);
+
+        LuckPermsIntegration luckPermsRef = luckPerms;
+        luckPerms = null;
+        closeStep("LuckPerms 适配", luckPermsRef == null ? null : luckPermsRef::close);
 
         GameService gameRef = game;
         game = null;

@@ -57,6 +57,11 @@ public final class ConfigurationManager {
         return snapshot == null ? null : snapshot.messages();
     }
 
+    public LuckPermsConfig luckPerms() {
+        LoadedConfiguration snapshot = current.get();
+        return snapshot == null ? LuckPermsConfig.parse(null) : snapshot.luckPerms();
+    }
+
     private LoadedConfiguration loadAll() throws Exception {
         Files.createDirectories(plugin.getDataFolder().toPath());
         YamlConfiguration configYaml = loadAndComplete("config.yml");
@@ -65,7 +70,7 @@ public final class ConfigurationManager {
         if (!parsedMessages.isString("prefix") || !parsedMessages.isConfigurationSection("help")) {
             throw new ConfigValidationException("messages.yml 缺少 prefix 或 help 节点");
         }
-        return new LoadedConfiguration(parsedGame, parsedMessages);
+        return new LoadedConfiguration(parsedGame, parsedMessages, LuckPermsConfig.parse(configYaml));
     }
 
     private YamlConfiguration loadAndComplete(String resourceName) throws Exception {
@@ -85,6 +90,7 @@ public final class ConfigurationManager {
         return current;
     }
 
-    private record LoadedConfiguration(GameConfig gameConfig, YamlConfiguration messages) {
+    private record LoadedConfiguration(GameConfig gameConfig, YamlConfiguration messages,
+                                       LuckPermsConfig luckPerms) {
     }
 }

@@ -1,0 +1,183 @@
+# 速下百层管理员 GUI 配置。修改后执行 /hfr reload 生效；布局错误时继续使用上一次有效配置。
+# layout/editor-layout/confirm-layout 每行必须正好 9 个字符，行数 1-6。
+title: "<dark_aqua><bold>速下百层 · 竞技场管理</bold></dark_aqua>"
+editor-title: "<dark_aqua><bold>编辑竞技场：{arena}</bold></dark_aqua>"
+confirm-title: "<dark_red><bold>确认删除：{arena}</bold></dark_red>"
+layout:
+  - "#########"
+  - "#DDDDDDA#"
+  - "#DDDDDDA#"
+  - "#DDDDDDA#"
+  - "#AAAAAAA#"
+  - "CGRAGGQG#"
+editor-layout:
+  - "#########"
+  - "#WSF12BH#"
+  - "#IIIIIII#"
+  - "#AAAAAAA#"
+  - "#AAAAAAA#"
+  - "#VVTXLAA#"
+confirm-layout:
+  - "#########"
+  - "#AAAAAAA#"
+  - "#AAAYNAA#"
+  - "#AAAAAAA#"
+  - "#########"
+
+icons:
+  "#":
+    name: §e✧ 闪闪发光的边框 ✧
+    material: WHITE_STAINED_GLASS_PANE
+    lore:
+      - §7嘿嘿嘿～
+      - §7戳我干嘛呀小坏蛋～
+    action: none
+    isEnchant: false
+    custom-model-data: 0
+    hideFlag: true
+    hideEnchant: true
+  "A":
+    name: ""
+    material: AIR
+    lore: []
+    action: none
+  "C":
+    name: "<green><bold>创建自动地图</bold></green>"
+    material: GRASS_BLOCK
+    lore:
+      - "<gray>按模板生成竖向速下降落赛道。</gray>"
+      - "<yellow>点击后依次输入名称、种子、楼层数</yellow>"
+    action: create-map
+  "G":
+    name: "<gold>竞技场管理</gold>"
+    material: COMMAND_BLOCK
+    lore:
+      - "<gray>通过列表按钮选择竞技场。</gray>"
+      - "<yellow>仅管理员可用</yellow>"
+    action: none
+  "R":
+    name: "<aqua>重载配置</aqua>"
+    material: CLOCK
+    lore:
+      - "<gray>重载 config、messages 和 GUI。</gray>"
+      - "<yellow>点击执行</yellow>"
+    action: reload
+  "Q":
+    name: "<red>关闭菜单</red>"
+    material: BARRIER
+    lore:
+      - "<gray>关闭管理员菜单。</gray>"
+      - "<yellow>点击关闭</yellow>"
+    action: close
+  "W":
+    name: "<green>设置等待点</green>"
+    material: LIME_WOOL
+    lore:
+      - "<gray>使用你当前的位置作为等待区出生点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-waiting
+  "S":
+    name: "<green>设置起点</green>"
+    material: LIME_CONCRETE
+    lore:
+      - "<gray>使用你当前的位置作为比赛起点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-start
+  "F":
+    name: "<green>设置终点</green>"
+    material: EMERALD_BLOCK
+    lore:
+      - "<gray>使用你当前的位置作为终点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-finish
+  "P":
+    name: "<yellow>边界点 1</yellow>"
+    material: GOLD_NUGGET
+    lore:
+      - "<gray>记录当前位置为边界第一点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-pos1
+  "1":
+    name: "<yellow>边界点 1</yellow>"
+    material: GOLD_NUGGET
+    lore:
+      - "<gray>记录当前位置为边界第一点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-pos1
+  "2":
+    name: "<yellow>边界点 2</yellow>"
+    material: IRON_NUGGET
+    lore:
+      - "<gray>记录当前位置为边界第二点。</gray>"
+      - "<yellow>点击设置</yellow>"
+    action: set-pos2
+  "B":
+    name: "<yellow>保存边界</yellow>"
+    material: GOLD_BLOCK
+    lore:
+      - "<gray>使用已记录的两个点生成边界。</gray>"
+      - "<red>必须先设置两个边界点</red>"
+    action: set-bounds
+  "D":
+    name: "<aqua>竞技场</aqua>"
+    material: MAP
+    lore:
+      - "<gray>点击查看并编辑此竞技场。</gray>"
+      - "<yellow>左键点击打开管理</yellow>"
+    action: open-arena
+  "V":
+    name: "<green>保存竞技场</green>"
+    material: WRITABLE_BOOK
+    lore:
+      - "<gray>验证坐标并异步保存配置。</gray>"
+      - "<yellow>点击保存</yellow>"
+    action: save
+  "T":
+    name: "<gold>强制开始</gold>"
+    material: FIREWORK_ROCKET
+    lore:
+      - "<gray>立即开始当前竞技场比赛。</gray>"
+      - "<yellow>点击执行</yellow>"
+    action: start
+  "X":
+    name: "<red>删除竞技场</red>"
+    material: TNT
+    lore:
+      - "<gray>删除竞技场配置，不删除世界目录。</gray>"
+      - "<red>不可逆操作，需要二次确认</red>"
+    action: confirm-delete
+  "Y":
+    name: "<red><bold>确认删除</bold></red>"
+    material: RED_CONCRETE
+    lore:
+      - "<red>删除配置后无法恢复。</red>"
+      - "<yellow>点击确认</yellow>"
+    action: delete
+  "N":
+    name: "<green>取消删除</green>"
+    material: LIME_CONCRETE
+    lore:
+      - "<gray>返回竞技场编辑。</gray>"
+      - "<yellow>点击取消</yellow>"
+    action: cancel-delete
+  "H":
+    name: "<aqua>添加楼层入口</aqua>"
+    material: HOPPER
+    lore:
+      - "<gray>将当前位置添加为下一层下落入口。</gray>"
+      - "<yellow>点击添加</yellow>"
+    action: add-floor
+  "I":
+    name: "<aqua>竞技场坐标状态</aqua>"
+    material: PAPER
+    lore:
+      - "<gray>{arena_status}</gray>"
+      - "<yellow>使用上方按钮设置坐标</yellow>"
+    action: none
+  "L":
+    name: "<yellow>返回列表</yellow>"
+    material: ARROW
+    lore:
+      - "<gray>返回竞技场列表。</gray>"
+      - "<yellow>点击返回</yellow>"
+    action: back

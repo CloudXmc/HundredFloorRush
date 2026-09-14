@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.mcxyd</groupId>
     <artifactId>hundred-floor-rush</artifactId>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
     <name>HundredFloorRush</name>
     <description>Paper/Folia 1.21.11 vertical hundred-floor race minigame.</description>
     <url>https://github.com/mcxyd/HundredFloorRush</url>
@@ -13,6 +13,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <paper.version>1.21.11-R0.1-SNAPSHOT</paper.version>
+        <luckperms.version>5.4</luckperms.version>
         <junit.version>5.12.2</junit.version>
     </properties>
     <repositories>
@@ -20,6 +21,7 @@
     </repositories>
     <dependencies>
         <dependency><groupId>io.papermc.paper</groupId><artifactId>paper-api</artifactId><version>${paper.version}</version><scope>provided</scope></dependency>
+        <dependency><groupId>net.luckperms</groupId><artifactId>api</artifactId><version>${luckperms.version}</version><scope>provided</scope></dependency>
         <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>${junit.version}</version><scope>test</scope></dependency>
     </dependencies>
     <build>

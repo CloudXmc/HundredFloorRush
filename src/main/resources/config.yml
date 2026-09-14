@@ -66,6 +66,20 @@ proxy:
   # 修改后执行 /hfr reload 生效；不会影响竞技场数据和玩家成绩。
   lobby-server: server
 
+# LuckPerms 权限组配置。修改后执行 /hfr reload 生效；只创建/补全权限节点，不会删除现有组或玩家数据。
+luckperms:
+  # 是否启用 LuckPerms 适配。可选 true/false；默认 true。
+  enabled: true
+  # 是否自动创建并补全 hfr-player、hfr-admin 两个组。默认 true。
+  create-groups: true
+  # 普通玩家组名称，只允许小写字母、数字、下划线和短横线；默认 hfr-player。
+  player-group: hfr-player
+  # 管理员组名称，只允许小写字母、数字、下划线和短横线；默认 hfr-admin。
+  admin-group: hfr-admin
+  # 是否让 LuckPerms 的 default 组继承普通玩家权限；默认 true。
+  # 不会把任何玩家提升为管理员，也不会覆盖服务器现有继承关系。
+  assign-player-group-to-default: true
+
 identity:
   # 玩家持久身份模式。OFFLINE_NAME：按名称；ONLINE_UUID：按服务器提供的真实 UUID。
   # 默认：OFFLINE_NAME。修改后 reload 生效，旧最佳记录不会自动迁移。
